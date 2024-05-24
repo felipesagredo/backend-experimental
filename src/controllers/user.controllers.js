@@ -32,13 +32,14 @@ export const deleteUser = async (req, res) => {
     }
     return res.sendStatus(204);
 }
-export const updateUser = async(req, res) => {
+export const actualizaUser = async(req, res) => {
     const {id} = req.params;
     const data = req.body;
 
     const {rows} = await pool.query(
         'UPDATE users SET name = $1, email = $2 WHERE id = $3 RETURNING *', 
-        [data.name, data.email, data.id]
+        [data.name, data.email, id]
     );
+    console.log(rows)
     return res.json(rows[0]);
 }
